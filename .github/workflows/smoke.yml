@@ -1,0 +1,28 @@
+name: smoke
+
+# The kit is two shell scripts whose whole value is "it runs on the box you
+# have". tests/smoke.sh exercises them without a network; running it on both
+# Linux and macOS is the point, because they disagree about `stat` and that
+# disagreement is exactly how the first release broke `state` checks on Linux.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: shell syntax
+        run: |
+          bash -n bin/patrol.sh
+          bash -n bin/review-gate.sh
+          bash -n tests/smoke.sh
+      - name: smoke
+        run: bash tests/smoke.sh
