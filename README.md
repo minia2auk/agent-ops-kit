@@ -30,7 +30,7 @@ operator to ignore the alarm. The rule both scripts encode:
 ## Install
 
 ```sh
-git clone <this repo> && cd agent-ops-kit
+git clone https://github.com/minia2auk/agent-ops-kit.git && cd agent-ops-kit
 cp examples/patrol.conf.example patrol.conf   # edit hosts, paths, thresholds
 ./bin/patrol.sh patrol.conf                   # prints OK ... or SIGNAL ...
 ```
