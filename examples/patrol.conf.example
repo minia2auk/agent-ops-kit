@@ -1,0 +1,16 @@
+# patrol.conf — copy to patrol.conf and edit.
+NAME="site"
+STATE_DIR="$HOME/.patrol-state"
+HTTP_TIMEOUT=10
+
+# kind|label|arg1|arg2
+CHECKS=(
+  "http|health|https://example.com/|200"
+  "http|api|https://example.com/api/health|200"
+  # kind|label|max-seconds|shell-command
+  "cmd|disk|60|df -k /"
+  # lines appended to the app log since the last run that look like failures
+  "lognew|errors|/var/log/myapp/app.log|ERROR|FATAL"
+  # a heartbeat file the app must keep touching (age in seconds)
+  "state|heartbeat|/var/lib/myapp/heartbeat|900"
+)
